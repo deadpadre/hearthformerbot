@@ -7,15 +7,34 @@ var unirest       = require('unirest');
 var request       = require('request');
 var bot           = new TelegramBot(TELEGRAM_TOKEN, {polling: true});
 
-var helpText = 'This bot is made for giving you all information about hearthstone cards.' +
-'\nUse the following syntax:' +
-'\n/help - for viewing this message' +
-'\n/card [card name] [(optional) locale] - to get specified card in choosed locale (enUS is default)';
+var helpText = 'Hi, I\'m HearthformerBot. I was made to give you all information about hearthstone cards.' +
+'\nUse the following syntax to use me:' +
+'\n/help - view this message' +
+'\n/card [card name] [(optional) locale] - get specified card in choosed locale (enUS is default)' +
+'\n Notice, that you must use brackets to emphasize query parameters.';
 var errorText = 'Oops, something is wrong in your query!';
+
+// 1040-1103
+function isRussianUnicodeSymbol(letterCode) {
+  return (letterCode >= 1040 && letterCode <= 1103);
+}
+
+// consider it's russian if it has at least one russian symbol
+function isRussianString(text) {
+  for (var i = 0; i < text.length; i++) {
+    if (isRussianUnicodeSymbol(text.charCodeAt(i))) {
+      return true;
+    }
+  }
+  return false;
+}
 
 //presumes locale is correct local name
 function formCardQuery(cardName, locale) {
   var res = HSAPI_ENDPOINT + "/cards/" + encodeURIComponent(cardName) + "?collectible=1";
+  if (typeof locale == 'undefined' && isRussianString(cardName)) {
+    locale = "ruRU";
+  }
   if (typeof locale != 'undefined') {
     res += "&locale=" + locale;
   }
@@ -26,7 +45,7 @@ bot.on('text', function(msg) {
   console.log(msg);
   var words = msg.text.split(/\b\s\[|\]\s\[|\]$/);
   console.log(words);
-  if (words[0] == '/help' && words.length == 1) {
+  if ((words[0] == '/help' || words[0] == '/start') && words.length == 1) {
     bot.sendMessage(msg.chat.id, helpText);
   } else if (words[0] == '/card') {
     if (words.length >= 3 && words.length <= 4) {
