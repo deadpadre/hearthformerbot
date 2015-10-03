@@ -1,0 +1,14 @@
+{
+  "name" : "HearthformerBot",
+  "version" : "1.0.0",
+  "dependencies" :  {
+    "unirest"               : "latest",
+    "request"               : "latest",
+    "node-telegram-bot-api" : "latest"
+  },
+  "description" : "hearthstone card viewer for telegram",
+  "repository"  :   {
+    "type"  : "git",
+    "url"   : "git://github.com/deadpadre/hearthformerbot.git"
+  }
+}
