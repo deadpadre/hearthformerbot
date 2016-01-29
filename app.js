@@ -8,10 +8,9 @@ var request       = require('request');
 var bot           = new TelegramBot(TELEGRAM_TOKEN, {polling: true});
 
 var helpText = 'Hi, I\'m HearthformerBot. I was made to give you all information about hearthstone cards.' +
-'\nUse the following syntax to use me:' +
+'\nUse the following syntax to ask me something:' +
 '\n/help - view this message' +
-'\n/card [card name] [(optional) locale] - get specified card in choosed locale (enUS is default)' +
-'\n Notice, that you must use brackets to emphasize query parameters.';
+'\n/card <card name> [(-l | --locale) <locale name>] - get specified card in chosen locale (enUS is default)';
 var errorText = 'Oops, something is wrong in your query!';
 
 function isRussianUnicodeSymbol(letterCode) {
