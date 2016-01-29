@@ -12,7 +12,7 @@ For now it only has a small number of commands.
 
   This command may be used in several number of ways.
 
-  * At first, you can simply specify card name in brackets in order to get its image.
+  * At first, you can simply specify card name in order to get its image.
 
     ![alt text](http://i.imgur.com/UAyEiOg.png "/card example")
 
